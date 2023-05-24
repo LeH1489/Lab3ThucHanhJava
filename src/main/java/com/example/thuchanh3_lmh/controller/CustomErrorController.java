@@ -1,0 +1,22 @@
+package com.example.thuchanh3_lmh.controller;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/error")
+public class CustomErrorController implements ErrorController {
+
+    public String handleError(HttpServletRequest request){
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        if(status != null){
+            int statusCode = Integer.parseInt(status.toString());
+            if(statusCode == 404)
+                return "error/404";
+        }
+        return null;
+    }
+}
